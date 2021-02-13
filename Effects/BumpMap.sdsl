@@ -1,0 +1,18 @@
+namespace Stride.Awesome.Shaders
+{
+    shader BumpMap : Texturing, ComputeColor
+    {
+        compose ComputeColor HeightMap;
+        
+        override float4 Compute()
+        {
+            float4 a = HeightMap.Compute();
+            streams.TexCoord += float2(0,0.001);
+            float4 b = HeightMap.Compute();
+            streams.TexCoord += float2(0.001,0);
+            float4 c = HeightMap.Compute();
+            streams.TexCoord -= 0.001;
+            return dot(b-a,c-a);
+        }
+    };
+}

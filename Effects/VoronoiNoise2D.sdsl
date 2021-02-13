@@ -1,0 +1,60 @@
+﻿namespace Stride.Awesome.Shaders
+{
+    shader VoronoiNoise2D<float Scale, float MinDist> : Texturing, ComputeColor
+    {
+        float2 Random2( float2 p ) 
+        {
+            return frac(sin(float2(dot(p,float2(127.1,311.7)),dot(p,float2(269.5,183.3))))*43758.5453);
+        }
+
+        override float4 Compute() {
+            float2 uv = streams.TexCoord;
+            float3 color = float3(0,0,0);
+
+
+            // Tile the space
+            float2 i_st = floor(Scale);
+            float2 f_st = frac(Scale);
+
+            uv *= Scale;
+
+
+            for (int y= -1; y <= 1; y++) {
+                for (int x= -1; x <= 1; x++) {
+                    // Neighbor place in the grid
+                    float2 neighbor = float2(float(x),float(y));
+
+                    // Random position from current + neighbor place in the grid
+                    float2 point = Random2(i_st + neighbor);
+
+			        // Animate the point
+                    point = 0.5 + 0.5*sin(Global.Time + 6.2831*point);
+
+			        // floattor between the pixel and the point
+                    float2 diff = neighbor + point - f_st;
+
+                    // Distance to the point
+                    float dist = length(diff);
+
+                    // Keep the closer distance
+                    MinDist = min(MinDist, dist);
+                }
+            }
+
+            // Draw the min distance (distance field)
+            color += MinDist;
+
+            // Draw cell center
+            color += 1.-step(.02, MinDist);
+
+            // Draw grid
+            color.r += step(.98, f_st.x) + step(.98, f_st.y);
+
+            // Show isolines
+            // color -= step(.7,abs(sin(27.0*MinDist)))*.5;
+
+            return float4(color,1.0);
+        }
+
+    };
+}

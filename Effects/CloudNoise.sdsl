@@ -1,10 +1,10 @@
 ﻿namespace Stride.Awesome.Shaders
 {
-    shader CloudNoise : Texturing, ComputeColor
+    shader CloudNoise<float Octaves, float Frequency, float Amplitude, float Lacunarity, float Gain> : Texturing, ComputeColor
     {
         override float4 Compute()
         {
-            float v = fbm(streams.TexCoord*10.0,6);
+            float v = fbm(streams.TexCoord);
             return float4(v,v,v,1);
         }
         float random (in float2 st) {
@@ -29,15 +29,17 @@
                     (d - b) * u.x * u.y;
         }
 
-        float fbm(float2 st, int OCTAVES) {
+        float fbm(float2 st) {
             // Initial values
             float value = 0.0;
-            float amplitude = .5;
-            float frequency = 0.;
+            float amplitude = Amplitude;
+            float frequency = Frequency;
+            float lacunarity = Lacunarity;
+            float gain = Gain;
             //
-            // Loop of octaves
-            for (int i = 0; i < OCTAVES; i++) {
-                value += amplitude * noise(st);
+            // Loop of Octaves
+            for (int i = 0; i < Octaves; i++) {
+                value += amplitude * noise(frequency * st);
                 st *= 2.;
                 amplitude *= .5;
             }

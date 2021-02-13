@@ -1,6 +1,6 @@
 ﻿namespace Stride.Awesome.Shaders
 {
-    shader SimplexNoise : Texturing, ComputeColor
+    shader SimplexNoise<float Scale> : Texturing, ComputeColor
     {
         override float4 Compute()
         {
@@ -9,7 +9,7 @@
             float2 st = streams.TexCoord;
 
             // Scale the space in order to see the function
-            st *= 100.;
+            st *= Scale;
 
             float v = snoise(st)*.5+.5;
 
