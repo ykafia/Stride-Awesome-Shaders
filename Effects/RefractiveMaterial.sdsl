@@ -1,0 +1,29 @@
+namespace CameraRefractionTest.Effects
+{
+    shader RefractiveMaterial<float IOR> : ShaderBaseStream, ComputeColor, NormalStream, Texturing, PositionStream4, Transformation, Camera
+    {
+        compose ComputeColor BackgroundTexture;
+        compose ComputeColor DiffuseTexture;
+
+        override float4 Compute()
+        {
+            float4 normals = float4(streams.normalWS,0);
+            float2 pos = streams.ShadingPosition;
+            
+            float4 refracted = refract(Eye,normals, IOR);
+            float2 bend = pos.xy + mul(refracted, WorldViewProjection).xy;
+            // Original color
+            float4 diffuse = DiffuseTexture.Compute();
+            
+            // Bending the uv
+            streams.TexCoord = float2(
+                bend.x/ViewSize.x,
+                bend.y/ViewSize.y
+            );
+
+
+            // If we don't do that, the texture applied will look darker
+            return  6*BackgroundTexture.Compute() * diffuse ;
+        }
+    };
+};
