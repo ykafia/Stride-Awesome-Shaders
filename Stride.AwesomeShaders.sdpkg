@@ -1,8 +1,8 @@
 !Package
 SerializedVersion: {Assets: 3.1.0.0}
 Meta:
-    Name: Stride.AwesomeShaders
-    Version: 1.0.1
+    Name: Stride.Awesome.Shaders
+    Version: 1.0.0
     Authors: []
     Owners: []
     Dependencies: null

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Stride.Awesome.Shaders</PackageId>
@@ -8,20 +7,16 @@
     <PackageDescription>Awesome stride shaders!</PackageDescription>
     <RepositoryUrl>https://github.com/ykafia/Stride.Awesome.Shaders</RepositoryUrl>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Stride.Engine" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-
-    <PackageReference Include="Stride.Video" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-    <PackageReference Include="Stride.Physics" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-    <PackageReference Include="Stride.Navigation" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-    <PackageReference Include="Stride.Particles" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-    <PackageReference Include="Stride.UI" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-    <PackageReference Include="Stride.Core" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" />
-
-    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.0.0.1-beta04-1374" PrivateAssets="contentfiles;analyzers" IncludeAssets="build" />
+    <PackageReference Include="Stride.Engine" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Video" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Physics" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Navigation" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Particles" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.UI" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Core" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" />
+    <PackageReference Include="Stride.Core.Assets.CompilerApp" Version="4.0.1.1397-beta" PrivateAssets="contentfiles;analyzers" IncludeAssets="build" />
   </ItemGroup>
-
   <ItemGroup>
     <Compile Update="Effects\VoronoiNoise2D.sdsl.cs">
       <DesignTime>True</DesignTime>
@@ -29,7 +24,6 @@
       <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Effects\VoronoiNoise2D.sdsl">
       <LastGenOutput>VoronoiNoise2D.sdsl.cs</LastGenOutput>

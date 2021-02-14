@@ -1,6 +1,6 @@
 ﻿namespace Stride.Awesome.Shaders
 {
-    shader VoronoiNoise2D<float Scale, float MinDist> : Texturing, ComputeColor
+    shader VoronoiNoise2DInverted<float Scale, float MinDist> : Texturing, ComputeColor
     {
         float2 Random2( float2 p ) 
         {
@@ -54,12 +54,12 @@
             // color += 1.-step(.02, m_dist);
 
             // Draw grid
-            // color.r += step(.98, f_st.x) + step(.98, f_st.y);
+            color.r += step(.98, f_st.x) + step(.98, f_st.y);
 
             // Show isolines
             // color -= step(.7,abs(sin(27.0*m_dist)))*.5;
 
-            return float4(color,1.0);
+            return float4(float3(1,1,1)-color,1.0);
         }
 
     };
