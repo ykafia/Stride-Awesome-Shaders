@@ -1,17 +1,18 @@
 namespace Stride.Awesome.Shaders
 {
-    shader VoronoiNoiseInverted<int Octaves,float Frequency,float Jitter, float Lacunarity, float Gain> : Texturing, ComputeColor, PositionStream4
+    shader VoronoiNoiseInverted<int Octaves,float Frequency,float Jitter, float Amplitude, float Lacunarity, float Gain> : Texturing, ComputeColor, PositionStream4
     {
         override float4 Compute()
         {
-            float value = fBm_F0(streams.PositionWS,Octaves);
-            return float4(float3(1,1,1)-float3(value,value,value),1.0);
+            float value = fBm_F0(streams.PositionWS.xyz,Octaves)/Frequency;
+			value = ceil(value) - value;
+            return float4(float3(value,value,value),1.0);
         }
 
 		// Fractal sums
         float fBm_F0(float3 p, int octaves)
         {
-	        float freq = Frequency, amp = 0.5;
+	        float freq = Frequency, amp = Amplitude;
 	        float sum = 0;	
 	        for(int i = 0; i < octaves; i++) 
 	        {
@@ -27,7 +28,7 @@ namespace Stride.Awesome.Shaders
 
         float fBm_F1_F0(float3 p, int octaves)
         {
-	        float freq = Frequency, amp = 0.5;
+	        float freq = Frequency, amp = Amplitude;
 	        float sum = 0;	
 	        for(int i = 0; i < octaves; i++) 
 	        {

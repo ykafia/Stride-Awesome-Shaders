@@ -5,7 +5,7 @@ namespace Stride.Awesome.Shaders
         override float4 Compute()
         {
             float value = fBm_F0(streams.PositionWS,Octaves);
-            return float4(value,value,value,value);
+            return float4(value,value,value,1.0);
         }
 
 		// Fractal sums
