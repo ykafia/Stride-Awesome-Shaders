@@ -1,0 +1,14 @@
+﻿namespace Stride.Noises
+{
+    shader VoronoiCompute2D<float Scale, float MinDist> :
+        ComputeColor, Texturing,
+        VoronoiNoise2D<Scale,MinDist>
+    {
+        override float4 Compute()
+        {
+            float v = ComputeNoise(streams.TexCoord);
+            return float4(v,v,v,v);
+        }
+       
+    };
+}

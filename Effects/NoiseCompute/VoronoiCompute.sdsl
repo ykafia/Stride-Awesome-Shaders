@@ -1,0 +1,14 @@
+﻿namespace Stride.Noises
+{
+    shader VoronoiCompute<int Octaves,float Frequency,float Jitter, float Amplitude, float Lacunarity, float Gain> : 
+        ComputeColor, PositionStream4,
+        VoronoiNoise<Octaves, Frequency, Jitter,Amplitude, Lacunarity, Gain>
+    {
+        override float4 Compute()
+        {
+            float v = ComputeNoise(streams.PositionWS);
+            return float4(v,v,v,v);
+        }
+
+    };
+}

@@ -1,4 +1,4 @@
-namespace Stride.Awesome.Shaders
+namespace Stride.Utils
 {
     shader BumpMap : Texturing, ComputeColor
     {

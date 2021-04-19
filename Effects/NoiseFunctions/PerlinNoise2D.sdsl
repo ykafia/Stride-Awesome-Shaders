@@ -1,19 +1,10 @@
-﻿namespace Stride.Awesome.Shaders
+﻿namespace Stride.Noises
 {
-    shader SimplexNoise<float Scale> : Texturing, ComputeColor
+    shader PerlinNoise2D<float Scale> : NoiseBase
     {
-        override float4 Compute()
+        override float ComputeNoise(float2 st)
         {
-            //float2 st = streams.SVPosition;//streams.Resolution;
-            //st.x *= u_resolution.x/u_resolution.y;
-            float2 st = streams.TexCoord;
-
-            // Scale the space in order to see the function
-            st *= Scale;
-
-            float v = snoise(st)*.5+.5;
-
-            return float4(v,v,v,1);
+            return snoise(st* Scale)*.5+.5;
         }
        
         float3 mod289(float3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -78,6 +69,5 @@
             g.yz = a0.yz * float2(x1.x,x2.x) + h.yz * float2(x1.y,x2.y);
             return 130.0 * dot(m, g);
         }
-
     };
 }

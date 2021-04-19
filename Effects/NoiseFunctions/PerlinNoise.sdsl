@@ -1,19 +1,15 @@
-namespace Stride.Awesome.Shaders
+﻿namespace Stride.Noises
 {
-    shader SimplexNoise3D : Texturing, ComputeColor, PositionStream4
+    shader PerlinNoise : NoiseBase
     {
-
-        float3 Random3(float3 c) {
-            float j = 4096.0*sin(dot(c,float3(17.0, 59.4, 15.0)));
-            float3 r;
-            r.z = frac(512.0*j);
-            j *= .125;
-            r.x = frac(512.0*j);
-            j *= .125;
-            r.y = frac(512.0*j);
-            return r-0.5;
+        override float ComputeNoise(float3 p)
+        {
+            //float value = Simplex3d(streams.Position.xyz)
+            float value = Simplex3d_fractal(p*8.0+8.0);
+            value = 0.5 + 0.5*value;
+			return value;
         }
-
+        // Fractal sums
         float Simplex3d(float3 p) {
 
             const float F3 =  0.3333333;
@@ -73,26 +69,5 @@ namespace Stride.Awesome.Shaders
                     +0.1333333*Simplex3d(4.0*mul(m,rot3))
                     +0.0666667*Simplex3d(8.0*m);
         }
-
-
-        override float4 Compute()
-        {
-            float2 p = streams.TexCoord;
-            float3 p3 = streams.PositionWS.xyz;//float3(p, Global.Time*0.025);
-            
-            float value;
-            
-            // if (p.x <= 0.6) {
-            //     value = Simplex3d(p3*32.0);
-            // } else {
-            //     value = Simplex3d_fractal(p3*8.0+8.0);
-            // }
-            value = Simplex3d_fractal(p3*8.0+8.0);
-            value = 0.5 + 0.5*value;
-            // value *= smoothstep(0.0, 0.005, abs(0.6-p.x)); // hello, iq :)
-            
-            return float4(float3(value,value,value),1.0);
-        }
-       
     };
 }

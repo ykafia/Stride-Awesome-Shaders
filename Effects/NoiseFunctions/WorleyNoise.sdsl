@@ -1,0 +1,13 @@
+﻿namespace Stride.Noises
+{
+    shader WorleyNoise<int Octaves,float Frequency,float Jitter, float Amplitude, float Lacunarity, float Gain> : 
+        VoronoiNoise<Octaves,Frequency,Jitter,Amplitude,Lacunarity,Gain>
+    {
+        override float ComputeNoise(float3 p)
+        {
+            float value = fBm_F0(p,Octaves)/Frequency;
+			return ceil(value) - value;  
+        }
+    };
+        
+}

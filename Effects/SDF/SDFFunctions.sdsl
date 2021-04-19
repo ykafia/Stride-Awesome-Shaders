@@ -1,0 +1,25 @@
+namespace Stride.SDF
+{
+    shader SDFFunctions
+    {
+        float SDSphere(float3 center, float radius, float3 position)
+        {
+            length(position - center) - radius;
+        }
+        float SDBox(float3 center, float3 position, float3 boxSize )
+        {
+            float3 q = abs(position - center) - boxSize;
+            return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+        }
+        float SDRoundBox(float3 center, float3 position, float3 b, float r )
+        {
+            float3 q = abs(position - center) - b;
+            return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0) - r;
+        }
+        float SDTorus(float3 center, float3 position, float2 t )
+        {
+            float2 q = vec2(length((position-center).xz)-t.x,p.y);
+            return length(q)-t.y;
+        }
+    };
+}

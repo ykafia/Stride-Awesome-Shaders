@@ -1,4 +1,4 @@
-namespace CameraRefractionTest.Effects
+namespace Stride.Utils
 {
     shader RefractiveMaterial<float IOR> : ShaderBaseStream, ComputeColor, NormalStream, Texturing, PositionStream4, Transformation, Camera
     {
